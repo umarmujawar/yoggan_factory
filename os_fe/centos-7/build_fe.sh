@@ -89,9 +89,14 @@ wait_image_active $TMP_IMG_ID
 
 #create keypair
 
+echo "============Creating Keypair============================="
+
 create_keypair $BUILDMARK
 
+echo "================Keypair Created=========================="
+
 #create vpc, net and subnet for test
+
 
 VPC_ID=$(create_vpc $TOKEN $BUILDMARK)
 
