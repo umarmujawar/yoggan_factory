@@ -125,15 +125,28 @@ echo "===================Network Created=========================="
 echo "$NET_ID"
 
 #boot vm and bootstap
+
+echo "=================Creating Server from the Image==============================="
+
 openstack server create --image $TMP_IMG_ID --flavor t2.micro --availability-zone $AZ_NAME --key-name mykey-${BUILDMARK} --nic net-id=$NET_ID ${IMG_NAME}-tmp  || exit 1
+
+echo "================Defining Floating IP============================"
 
 IP=$(openstack floating ip create admin_external_net | grep 'floating_ip_address' | awk {'print $4'})
 
+echo "$IP"
+
+echo "======================Adding Floating IP on server========="
+
 openstack server add floating ip ${IMG_NAME}-tmp $IP
+
+echo "=========Ansible Bootstraping========================="
 
 ansible_bootstrap $IP
 
 ## create image
+
+echo "==================Creating Final Image==========="
 
 IMG_ID=$(create_image_via_ecs $TOKEN ${IMG_NAME} ${IMG_NAME}-tmp)
 
