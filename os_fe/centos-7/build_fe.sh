@@ -128,7 +128,7 @@ echo "$NET_ID"
 
 echo "=================Creating Server from the Image==============================="
 
-openstack server create --image $TMP_IMG_ID --flavor t2.micro --availability-zone $AZ_NAME --key-name mykey-${BUILDMARK} --nic net-id=$NET_ID ${IMG_NAME}-tmp  || exit 1
+openstack server create --image $TMP_IMG_ID --flavor t2.micro --availability-zone $AZ_NAME --key-name mykey-${BUILDMARK}.pem --nic net-id=$NET_ID ${IMG_NAME}-tmp  || exit 1
 
 echo "================Defining Floating IP============================"
 
