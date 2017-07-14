@@ -17,14 +17,14 @@ bucket_ret=$?
 
 
 function get_token {
-echo "Defining token varibale and fetching token vaule"
+
 token=$(curl -i -k $OS_AUTH_URL/auth/tokens -H "Content-type: application/json" -X POST -d @<(cat <<EOF
 {
 "auth":{"identity":{"methods":["password"],"password":{"user":{"name":'$OS_USERNAME',"password":'$OS_PASSWORD',"domain":{"name":'$OS_DOMAIN_NAME'}}}},"scope":{"project":{"name":'$OS_TENANT_NAME'}}}
 }
 EOF
 ) | grep "X-Subject-Token:"| cut -d : -f 2)
-echo "Token value stored in token variable"
+
 echo $token
 }
 
