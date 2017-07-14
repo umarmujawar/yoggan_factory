@@ -108,10 +108,21 @@ echo "================Keypair Created=========================="
 
 #create vpc, net and subnet for test
 
+echo "===================Creating VPC=========================="
 
 VPC_ID=$(create_vpc $TOKEN $BUILDMARK)
 
+echo "===================VPC Created=========================="
+
+echo "$VPC_ID"
+
+echo "===================Creating Network=========================="
+
 NET_ID=$(create_net $TOKEN $VPC_ID $BUILDMARK)
+
+echo "===================Network Created=========================="
+
+echo "$NET_ID"
 
 #boot vm and bootstap
 openstack server create --image $TMP_IMG_ID --flavor t2.micro --availability-zone $AZ_NAME --key-name mykey-${BUILDMARK} --nic net-id=$NET_ID ${IMG_NAME}-tmp  || exit 1
