@@ -78,17 +78,25 @@ echo "Fetching Token Value"
 
 TOKEN=$(get_token)
 
+echo "Token created, priting token value"
 echo "$TOKEN"
+
+echo "Creating Image"
 
 create_image_via_s3 $TOKEN
 
-echo "===========Wait for image will be active================="
+echo "A===========Wait for image will be active================="
 
 sleep 40
 
 TMP_IMG_ID=$(openstack image list | grep $TMP_IMG_NAME | awk {'print $2'})>/dev/null 2>&1
 
+echo "B===========Wait for image will be active================="
+
 wait_image_active $TMP_IMG_ID
+
+echo "==========Image Created================"
+echo "$TMP_IMG_ID"
 
 #create keypair
 
