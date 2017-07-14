@@ -74,8 +74,11 @@ fi
 #upload image to S3
 s3 put $BUCKET/$TMP_IMG_NAME.qcow2 filename=$IMG >& /dev/null
 
+echo "Fetching Token Value"
 
 TOKEN=$(get_token)
+
+echo "$TOKEN"
 
 create_image_via_s3 $TOKEN
 
